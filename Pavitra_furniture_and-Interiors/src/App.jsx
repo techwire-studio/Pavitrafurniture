@@ -1,36 +1,26 @@
+import { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import './App.css'
-import About from './components/About'
-
-import Contact from './components/Contact'
-import Expertise from './components/Experties'
-import Footer from './components/Footer'
-import Footer2 from './components/Footer2'
-import Home from './components/Home'
-import Projects from './components/Projects'
-import Subscribe from './components/Subscribe'
-import Testimonials from './components/Testimonials'
-import WhyChooseUs from './components/WhyChooseUs'
-
+const Home = lazy(() => import('./components/Home'));
+const AboutUsPage = lazy(() => import('./pages/AboutUsPage'));
+const ProjectPage = lazy(() => import('./pages/ProjectPage'));
+const FaqsPage = lazy(() => import('./pages/FaqsPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
 
 function App() {
-  
-
   return (
-    <div>
-      <Home />
-      <About />
-      <Expertise />
-      {/* <WhyChooseUs/> */}
-      
-      <Projects />
-      <Testimonials />
-      <Contact />
-      <Subscribe />
-      <Footer/>
-      <Footer2 />
-    </div>
-  )
+    <Router>
+      <Suspense >
+        <Routes>
+          <Route path='/about-page' element={<AboutUsPage />} />
+          <Route path='/product-page' element={<ProjectPage />} />
+          <Route path='/faqs-page' element={<FaqsPage />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/contact-page' element={<ContactPage />} />
+        </Routes>
+      </Suspense>
+    </Router>
+  );
 }
 
-export default App
+export default App;
